@@ -32,7 +32,7 @@ def save_database():
 
     #conn = psycopg2.connect(database=Database, user=Database_user, password=Database_password, host=Database_host,
     #                        port=Database_port)
-    conn = psycopg2.connect(os.getenv('basketball_database_url'))
+    conn = psycopg2.connect(os.getenv('DATABASE_URL'))
 
     cursor = conn.cursor()
     cursor.execute('truncate "BasketballPickle"')
@@ -49,7 +49,7 @@ def load_database():
 
         #conn = psycopg2.connect(database=Database, user=Database_user, password=Database_password, host=Database_host,
         #                        port=Database_port)
-        conn = psycopg2.connect(os.getenv('basketball_database_url'))
+        conn = psycopg2.connect(os.getenv('DATABASE_URL'))
 
         cursor = conn.cursor()
         cursor.execute('select pickle_data from "BasketballPickle" LIMIT 1')  #
@@ -64,7 +64,7 @@ def load_database():
 def setup_database():
     #conn = psycopg2.connect(database=Database, user=Database_user, password=Database_password, host=Database_host,
     #                        port=Database_port)
-    conn = psycopg2.connect(os.getenv('basketball_database_url'))
+    conn = psycopg2.connect(os.getenv('DATABASE_URL'))
 
     cursor = conn.cursor()
     cursor.execute('''
