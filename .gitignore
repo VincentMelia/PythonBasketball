@@ -139,4 +139,5 @@ ENV/
 # Rope project settings
 .ropeproject
 
-#/Configuration.py
+BasketballPlayerDatabase.p
+
