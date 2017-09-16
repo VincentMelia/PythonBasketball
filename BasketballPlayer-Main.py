@@ -14,7 +14,7 @@ import psycopg2
 
 
 app = Flask(__name__)
-app.secret_key = 'abcdef'
+app.secret_key = os.getenv('basketball_secret_key')
 bootstrap = Bootstrap(app)
 
 Playerdict = {}
