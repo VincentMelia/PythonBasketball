@@ -3,7 +3,6 @@ from Configuration import BasketballPlayerDatabase, Root_URL
 from BasketballPlayer import BasketballPlayer
 import pickle
 from flask import Flask, request, render_template, redirect, send_from_directory
-from flask_bootstrap import Bootstrap
 from htmltemplate import Template
 from PIL import Image
 import base64
@@ -15,7 +14,6 @@ import psycopg2
 
 app = Flask(__name__)
 app.secret_key = os.getenv('basketball_secret_key')
-bootstrap = Bootstrap(app)
 
 Playerdict = {}
 
@@ -89,7 +87,7 @@ def init_database():
 def new_player():
     load_database()
     if request.method == 'POST':
-        file=request.files['ImageAtr']
+        file = request.files['ImageAtr']
 
         New_Basketball_Player = BasketballPlayer(name=request.form['Name_Input'],
                                                  age=request.form['Age_Input'],
@@ -219,16 +217,6 @@ def delete_player(id):
 @app.route('/')
 def main_page():
     return redirect('/player_list')
-    player_url = Root_URL
-    player_list_string = ''
-    player_list_string = player_list_string + '<html>'
-    load_database()
-    for playerid, player in Playerdict.items():
-        print(playerid + ' ' + player.name)
-        player_list_string = player_list_string + ' Player: ' + '<a href= "' + player_url + 'player/' + playerid + '" onclick="alert():">' + player.name + '</a>' + ' Team: ' + '<a href= "' + player_url + 'player/' + playerid + '">' + player.team + ' </a> <a href="' + player_url + 'player/' + playerid + '/delete' + '">' + 'delete' + '</a> <p/>'
-    player_list_string = player_list_string + "</html>"
-    # render_template('Default.html', root_url='aaa', playerlist=Playerdict)
-    return player_list_string
 
 
 @app.route('/player_list')
