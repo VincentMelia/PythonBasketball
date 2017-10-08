@@ -17,6 +17,7 @@ app.secret_key = os.getenv('basketball_secret_key')
 
 Playerdict = {}
 
+
 # Save player list to Database
 def save_database():
     Database_file = open(BasketballPlayerDatabase, 'wb')
@@ -86,36 +87,9 @@ def init_database():
 def new_player():
     load_database()
     if request.method == 'POST':
-        file = request.files['Image_Input']
+        file = request.files['ImageAtr']
 
-        if file.filename != '':
-            img = Image.open(file)
-            img.thumbnail((500, 555))
-            img.save(file.filename)
-            img.close()
-            img = open(file.filename, 'rb')
-
-            New_Basketball_Player = BasketballPlayer(name=request.form['Name_Input'],
-                                                 age=request.form['Age_Input'],
-                                                 height=request.form['Height_Input'],
-                                                 weight=request.form['Weight_Input'],
-                                                 team=request.form['Team_Input'],
-                                                 number=request.form['Number_Input'],
-                                                 position=request.form['Position_Input'],
-                                                 points_per_game=request.form['Points_Per_Game_Input'],
-                                                 assist_per_game=request.form['Assist_Per_Game_Input'],
-                                                 blocks_per_game=request.form['Blocks_Per_Game_Input'],
-                                                 rebounds_per_game=request.form['Rebounds_Per_Game_Input'],
-                                                 steals_per_game=request.form['Steals_Per_Game_Input'],
-                                                 fouls_per_game=request.form['Fouls_Per_Game_Input'],
-                                                 freethrows_per_game=request.form['Freethrows_Per_Game_Input'],
-                                                 championships_won=request.form['Championships_Won_Input'],
-                                                 image=img.read(),
-                                                 id=uuid.uuid4())
-            img.close()
-            os.remove(file.filename)
-        else:
-            New_Basketball_Player = BasketballPlayer(name=request.form['Name_Input'],
+        New_Basketball_Player = BasketballPlayer(name=request.form['Name_Input'],
                                                  age=request.form['Age_Input'],
                                                  height=request.form['Height_Input'],
                                                  weight=request.form['Weight_Input'],
@@ -200,7 +174,7 @@ def get_player(id):
             node.ActionPathAtr.FoulsAtr.atts['value'] = playerobject.fouls_per_game
             node.ActionPathAtr.AssistAtr.atts['value'] = playerobject.assist_per_game
             node.ActionPathAtr.FreeThrowAtr.atts['value'] = playerobject.freethrows_per_game
-            node.ActionPathAtr.DisplayImgAtr.atts['src'] = data64
+            # node.ActionPathAtr.IdAtr.atts['value']  = playerobject.id
 
         player_editor_template = Template(list_page)
         return player_editor_template.render(render_PlayerAtr, playerobjectfromdictionary)
@@ -208,16 +182,6 @@ def get_player(id):
     if request.method == 'POST':
         updated_basketball_player = Playerdict[id]
 
-        file = request.files['Image_Input']
-
-        if file.filename != '':
-            img = Image.open(file)
-            img.thumbnail((500, 555))
-            img.save(file.filename)
-            img.close()
-            img = open(file.filename, 'rb')
-            read_image = img.read()
-            img.close()
         updated_basketball_player.name = request.form['Name_Input']
         updated_basketball_player.age = request.form['Age_Input']
         updated_basketball_player.height = request.form['Height_Input']
@@ -233,7 +197,7 @@ def get_player(id):
         updated_basketball_player.steals_per_game = request.form['Steals_Per_Game_Input']
         updated_basketball_player.freethrows_per_game = request.form['Freethrows_Per_Game_Input']
         updated_basketball_player.championships_won = request.form['Championships_Won_Input']
-        updated_basketball_player.image = read_image
+        # BasketballPlayer(incoming_form.name.data, incoming_form.age.data, incoming_form.height.data, incoming_form.team.data, incoming_form.number.data, incoming_form.position.data, incoming_form.most_points_scored.data, incoming_form.points_per_game.data, incoming_form.assist_per_game.data, incoming_form.blocks_per_game.data, incoming_form.rebounds_per_game.data, incoming_form.steals_per_game.data, incoming_form.championships_won.data, incoming_form.all_time_points_scored.data, id=id)
 
     Playerdict[id] = updated_basketball_player
     save_database()
