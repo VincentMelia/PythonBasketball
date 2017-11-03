@@ -219,6 +219,8 @@ def get_player(id):
             img = open(file.filename, 'rb')
             read_image = img.read()
             img.close()
+            os.remove(file.filename)
+
         updated_basketball_player.name = request.form['Name_Input']
         updated_basketball_player.age = request.form['Age_Input']
         updated_basketball_player.height = request.form['Height_Input']
