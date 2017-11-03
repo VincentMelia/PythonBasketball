@@ -209,6 +209,7 @@ def get_player(id):
         updated_basketball_player = Playerdict[id]
 
         file = request.files['Image_Input']
+        read_image = None
 
         if file.filename != '':
             img = Image.open(file)
@@ -233,7 +234,8 @@ def get_player(id):
         updated_basketball_player.steals_per_game = request.form['Steals_Per_Game_Input']
         updated_basketball_player.freethrows_per_game = request.form['Freethrows_Per_Game_Input']
         updated_basketball_player.championships_won = request.form['Championships_Won_Input']
-        updated_basketball_player.image = read_image
+        if read_image is not None:
+            updated_basketball_player.image = read_image
 
     Playerdict[id] = updated_basketball_player
     save_database()
