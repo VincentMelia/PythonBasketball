@@ -18,6 +18,7 @@
 .idea/**/uiDesigner.xml
 .idea/misc.xml
 .idea/Basketball - GIT.iml
+.idea
 
 # Gradle:
 .idea/**/gradle.xml
@@ -143,3 +144,4 @@ ENV/
 
 BasketballPlayerDatabase.p
 
+/BasketballPlayerDatabase.p
